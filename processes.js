@@ -1,19 +1,5 @@
 //Identify Parts
-const device = document.getElementById('container');
-    const display = document.getElementById('display');
-        let num1 = display.appendChild(document.getElementById('x'));
-        let oprtn = display.appendChild(document.getElementById('op'));
-        let num2 = display.appendChild(document.getElementById('y'));
-    const button = device.querySelectorAll('button');
-    const numBox = document.getElementById('number-inputs');
-        const nums = numBox.querySelector('button');
-    const opBox = document.getElementById('in-betweens');
-        const ops = opBox.querySelector('button');
-    const bigChangeBox = document.getElementById('transformers');
-        const bigChanges = bigChangeBox.querySelector('button');
-        const equal = document.getElementById('equals');
-        const clearEntry = document.getElementById('clear-entry');
-        const allClear = document.getElementById('all-clear');
+const button = document.querySelectorAll('button');
 //Create Operations
 function add(a, b) {
     return a + b;
@@ -40,53 +26,51 @@ function divide(a, b) {
         }
     }
 //Clearing Children
-function removeAllChildren(parent) {
-    while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);
-    }
-}
+
 //Input Triggers
+let arrX = [];
+let arrOp = [];
+let arrY = [];
 button.forEach(btn => {
     btn.addEventListener('click', event => {
-        if (btn.className === 'num' && !oprtn.firstChild) {
-            let x = document.createElement('div');
-            x.innerHTML = btn.innerHTML;
-            num1.appendChild(x);
-        } else if (btn.className === 'op' && num1.firstChild) {
+        if (btn.className === 'num' && !arrOp[0]) {
+            arrX.push(btn.innerHTML);
+        } else if (btn.className === 'op' && arrX[0]) {
             if (!op) {
-                let op = document.createElement('div');
-                oprtn.appendChild(op);
-            } 
-            op.innerHTML = btn.innerHTML;
-        } else if (btn.className === 'num' && oprtn.firstChild) {
-            let y = document.createElement('div');
-            y.innerHTML = btn.innerHTML;
-            num2.appendChild(y);
+                arrOp.push(btn.innerHTML);
+            } else {
+                arrOp.splice(0, 1, btn.innerHTML);
+            }
+        } else if (btn.className === 'num' && arrOp[0]) {
+            arrY.push(btn.innerHTML);
         } else if (btn.id === 'neg') {
-            if (!num2.firstChild) {
-                if (num1.firstChild.textContent !== "-") {
-                    num1.prepend("-");
-                } else if (num1.firstChild.textContent === "-") {
-                    num1.removeChild(num1.firstChild);
+            if (!arrOp[0]) {
+                if (arrX[0] !== "-") {
+                    arrX.unshift("-");
+                } else if (arrX[0] === "-") {
+                    arrX.shift();
                 }
-            } else if (num2.firstChild){
-                if (num2.firstChild.textContent !== "-") {
-                    num2.prepend("-");
-                } else if (num2.firstChild.textContent === "-") {
-                    num2.removeChild(num2.firstChild);
+            } else if (arrOp[0]){
+                if (arrY[0] !== "-") {
+                    arrY.unshift("-");
+                } else if (arrY[0] === "-") {
+                    arrY.shift();
                 }
             }
         } else if (btn.id === 'clear-entry') {
-            if (num2.firstChild) {
-                removeAllChildren(num2);
-            } else if (!num2.firstChild && num1.firstChild) {
-                removeAllChildren(oprtn);
-                removeAllChildren(num1);
+            if (arrY[0]) {
+                arrY.splice(0);
+            } else if (!arrY[0] && arrX[0]) {
+                arrOp.splice(0);
+                arrX.splice(0);
             }
         } else if (btn.id === 'all-clear') {
-            removeAllChildren(num1);
-            removeAllChildren(oprtn);
-            removeAllChildren(num2);
+            arrX.splice(0);
+            arrOp.splice(0);
+            arrY.splice(0);
         }
+        x.innerHTML = arrX.join('');
+        op.innerHTML = arrOp;
+        y.innerHTML = arrY.join('');
     })
 })
