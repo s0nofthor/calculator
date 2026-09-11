@@ -13,20 +13,18 @@ function multiply(a, b) {
 function divide(a, b) {
     return a / b;
 }
-    //Access Operations
-    function operate(num1, op, num2) {
-        if (op === add) {
-            return add(num1, num2);
-        } else if (op === subtract) {
-            return subtract(num1, num2);
-        } else if (op === multiply) {
-            return multiply(num1, num2);
-        } else if (op === divide) {
-            return divide(num1, num2);
-        }
+//Access Operations
+function operate(x, op, y) {
+    if (op === "+") {
+        return add(x, y);
+    } else if (op === "-") {
+        return subtract(x, y);
+    } else if (op === "*") {
+        return multiply(x, y);
+    } else if (op === "/") {
+        return divide(x, y);
     }
-//Clearing Children
-
+}
 //Input Triggers
 let arrX = [];
 let arrOp = [];
@@ -72,5 +70,11 @@ button.forEach(btn => {
         x.innerHTML = arrX.join('');
         op.innerHTML = arrOp;
         y.innerHTML = arrY.join('');
+        if (btn.id === 'equals') {
+            let X = arrX.join('');
+            let OP = arrOp[0];
+            let Y = arrY.join('');
+            console.log(operate(Number(X), OP, Number(Y)));
+        }
     })
 })
