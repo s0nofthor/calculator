@@ -65,6 +65,8 @@ button.forEach(btn => {
         } else if (btn.id === 'clear-entry') {
             if (arrY[0]) {
                 arrY.splice(0);
+                arrIs.splice(1);
+                is.innerHTML = '';
             } else if (!arrY[0] && arrX[0]) {
                 arrOp.splice(0);
                 arrX.splice(0);
@@ -73,7 +75,7 @@ button.forEach(btn => {
             arrX.splice(0);
             arrOp.splice(0);
             arrY.splice(0);
-            arrIs.splice(1);
+            is.innerHTML = '';
         }
         x.innerHTML = arrX.join('');
         op.innerHTML = arrOp;
