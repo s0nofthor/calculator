@@ -1,5 +1,10 @@
 //Identify Parts
 const button = document.querySelectorAll('button');
+let arrX = [];
+let arrOp = [];
+let arrY = [];
+let arrIs = ['=',];
+const nums = '1234567890';
 //Create Operations
 function add(a, b) {
     return a + b;
@@ -26,9 +31,6 @@ function operate(x, op, y) {
     }
 }
 //Input Triggers
-let arrX = [];
-let arrOp = [];
-let arrY = [];
 button.forEach(btn => {
     btn.addEventListener('click', event => {
         if (btn.className === 'num' && !arrOp[0]) {
@@ -36,8 +38,13 @@ button.forEach(btn => {
         } else if (btn.className === 'op' && arrX[0]) {
             if (!op) {
                 arrOp.push(btn.innerHTML);
-            } else {
+            } else if (op){
                 arrOp.splice(0, 1, btn.innerHTML);
+            } if (arrIs[1]) {
+                arrX.splice(0, Infinity, arrIs.slice(1));
+                arrY.splice(0);
+                arrIs.splice(1);
+                is.innerHTML = '';
             }
         } else if (btn.className === 'num' && arrOp[0]) {
             arrY.push(btn.innerHTML);
@@ -66,6 +73,7 @@ button.forEach(btn => {
             arrX.splice(0);
             arrOp.splice(0);
             arrY.splice(0);
+            arrIs.splice(1);
         }
         x.innerHTML = arrX.join('');
         op.innerHTML = arrOp;
@@ -74,7 +82,8 @@ button.forEach(btn => {
             let X = arrX.join('');
             let OP = arrOp[0];
             let Y = arrY.join('');
-            console.log(operate(Number(X), OP, Number(Y)));
+            arrIs.push(operate(Number(X), OP, Number(Y)));
+            is.innerHTML = arrIs.join('');
         }
     })
 })
