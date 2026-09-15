@@ -19,7 +19,7 @@ function divide(a, b) {
     return a / b;
 }
 //Access Operations
-function operate(x, op, y) {
+function pickOperation(x, op, y) {
     if (op === "+") {
         return add(x, y);
     } else if (op === "-") {
@@ -30,17 +30,34 @@ function operate(x, op, y) {
         return divide(x, y);
     }
 }
+function operate() {
+    let X = arrX.join('');
+    let OP = arrOp[0];
+    let Y = arrY.join('');
+    arrIs.push(pickOperation(Number(X), OP, Number(Y)));
+}
 //Input Triggers
 button.forEach(btn => {
     btn.addEventListener('click', event => {
+        if (btn.id === 'equals') {
+            operate();
+            is.innerHTML = arrIs.join('');
+        }
         if (btn.className === 'num' && !arrOp[0]) {
             arrX.push(btn.innerHTML);
         } else if (btn.className === 'op' && arrX[0]) {
-            if (!op) {
+            if (!arrOp[0]) {
                 arrOp.push(btn.innerHTML);
-            } else if (op){
+            } else if (arrOp[0]) {
+                if (!arrY[0]) {
                 arrOp.splice(0, 1, btn.innerHTML);
-            } if (arrIs[1]) {
+                } else {
+                    operate();
+                    x.innerHTML = arrIs.join('');
+                    arrOp.splice(0, 1, btn.innerHTML);
+                }
+            } 
+            if (arrIs[1]) {
                 arrX.splice(0, Infinity, arrIs.slice(1));
                 arrY.splice(0);
                 arrIs.splice(1);
@@ -80,12 +97,5 @@ button.forEach(btn => {
         x.innerHTML = arrX.join('');
         op.innerHTML = arrOp;
         y.innerHTML = arrY.join('');
-        if (btn.id === 'equals') {
-            let X = arrX.join('');
-            let OP = arrOp[0];
-            let Y = arrY.join('');
-            arrIs.push(operate(Number(X), OP, Number(Y)));
-            is.innerHTML = arrIs.join('');
-        }
     })
 })
