@@ -3,8 +3,7 @@ const button = document.querySelectorAll('button');
 let arrX = [];
 let arrOp = [];
 let arrY = [];
-let arrIs = ['=',];
-const nums = '1234567890';
+let arrIs = ['= ',];
 //Create Operations
 function add(a, b) {
     return a + b;
@@ -34,7 +33,10 @@ function operate() {
     let X = arrX.join('');
     let OP = arrOp[0];
     let Y = arrY.join('');
-    arrIs.push(pickOperation(Number(X), OP, Number(Y)));
+    let result = pickOperation(Number(X), OP, Number(Y));
+    if (!arrIs[1]){
+    arrIs.push(result.toFixed(1));
+    }
 }
 //Input Triggers
 button.forEach(btn => {
@@ -43,7 +45,7 @@ button.forEach(btn => {
             operate();
             is.innerHTML = arrIs.join('');
         }
-        if (btn.className === 'num' && !arrOp[0]) {
+        if (btn.className === 'num' && !arrOp[0] && arrX[arrX.length - 2] !== '.') {
             arrX.push(btn.innerHTML);
         } else if (btn.className === 'op' && arrX[0]) {
             if (!arrOp[0]) {
@@ -63,7 +65,7 @@ button.forEach(btn => {
                 arrIs.splice(1);
                 is.innerHTML = '';
             }
-        } else if (btn.className === 'num' && arrOp[0]) {
+        } else if (btn.className === 'num' && arrOp[0] && !arrIs[1] && arrY[arrY.length - 2] !== '.') {
             arrY.push(btn.innerHTML);
         } else if (btn.id === 'neg') {
             if (!arrOp[0]) {
@@ -79,6 +81,14 @@ button.forEach(btn => {
                     arrY.shift();
                 }
             }
+        } else if (btn.id === 'backspace') {
+            if (arrY[0]) {
+                arrY.pop();
+            } else if (arrOp[0] && !arrY[0]) {
+                arrOp.pop();
+            } else if (arrX[0] && !arrOp[0]) {
+                arrX.pop();
+            }
         } else if (btn.id === 'clear-entry') {
             if (arrY[0]) {
                 arrY.splice(0);
@@ -88,10 +98,12 @@ button.forEach(btn => {
                 arrOp.splice(0);
                 arrX.splice(0);
             }
-        } else if (btn.id === 'all-clear') {
+        } else if (btn.id === 'all-clear' 
+                || btn.id === 'num' && arrIs[1]) {
             arrX.splice(0);
             arrOp.splice(0);
             arrY.splice(0);
+            arrIs.splice(1);
             is.innerHTML = '';
         }
         x.innerHTML = arrX.join('');
