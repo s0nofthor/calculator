@@ -39,6 +39,54 @@ function operate() {
     }
 }
 //Input Triggers
+document.addEventListener('keydown', e => {
+    if (e.key === '1') {
+        document.getElementById('1').click();
+    } else if (e.key === '2') {
+        document.getElementById('2').click();
+    } else if (e.key === '3') {
+        document.getElementById('3').click();
+    } else if (e.key === '4') {
+        document.getElementById('4').click();
+    } else if (e.key === '5') {
+        document.getElementById('5').click();
+    } else if (e.key === '6') {
+        document.getElementById('6').click();
+    } else if (e.key === '7') {
+        document.getElementById('7').click();
+    } else if (e.key === '8') {
+        document.getElementById('8').click();
+    } else if (e.key === '9') {
+        document.getElementById('9').click();
+    } else if (e.key === '0') {
+        document.getElementById('0').click();
+    } else if (e.key === '-') {
+        if (arrX[0] && !arrOp[0]
+         || arrY[0]) {
+            document.getElementById('subtract').click();
+        } else if (!arrX[0]
+                 || arrX[0] && arrOp[0]) {
+            document.getElementById('neg').click();
+        }
+    } else if (e.key === '+') {
+        document.getElementById('add').click();
+    } else if (e.key === '*') {
+        document.getElementById('multiply').click();
+    } else if (e.key === '/') {
+        document.getElementById('divide').click();
+    } else if (e.key === '=') {
+        document.getElementById('equals').click();
+    } else if (e.key === 'Backspace') {
+        if (arrIs[1]) {
+            arrIs.splice(1);
+            is.innerHTML = '';
+        } else if (!arrIs[1]) {
+            document.getElementById('backspace').click();
+        }
+    } else if (e.key === 'Enter') {
+        document.getElementById('equals').click();
+    }
+});
 button.forEach(btn => {
     btn.addEventListener('click', event => {
         if (btn.id === 'equals') {
@@ -71,14 +119,10 @@ button.forEach(btn => {
             if (!arrOp[0]) {
                 if (arrX[0] !== "-") {
                     arrX.unshift("-");
-                } else if (arrX[0] === "-") {
-                    arrX.shift();
                 }
-            } else if (arrOp[0]){
-                if (arrY[0] !== "-") {
+            } else if (arrOp[0] && !arrIs[1]){
+                if (arrY[0] !== "-" && !arrY[0]) {
                     arrY.unshift("-");
-                } else if (arrY[0] === "-") {
-                    arrY.shift();
                 }
             }
         } else if (btn.id === 'backspace') {
