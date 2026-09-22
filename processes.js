@@ -93,9 +93,12 @@ document.addEventListener('keydown', e => {
 });
 button.forEach(btn => {
     btn.addEventListener('click', event => {
-        if (btn.id === 'equals' && arrY[0]) {
+        if (btn.id === 'equals') {
+            if (arrY[0] === '-' && arrY[1] 
+              ||arrY[0] && arrY[0] !== '-') {
             operate();
             is.innerHTML = arrIs.join('');
+            }
         }
         if (btn.className === 'num' && !arrOp[0] && arrX[arrX.length - 2] !== '.') {
             arrX.push(btn.innerHTML);
