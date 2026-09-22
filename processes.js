@@ -64,6 +64,8 @@ document.addEventListener('keydown', e => {
         document.getElementById('9').click();
     } else if (e.key === '0') {
         document.getElementById('0').click();
+    } else if (e.key === '.') {
+        document.getElementById('.').click();
     } else if (e.key === '-') {
         if (arrX[0] && !arrOp[0]
          || arrY[0]) {
