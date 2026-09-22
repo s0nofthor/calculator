@@ -36,7 +36,7 @@ function operate() {
     let result = pickOperation(Number(X), OP, Number(Y));
     if (!arrIs[1]){
         if (result % 1 != 0) {
-    arrIs.push(result.toFixed(1));
+    arrIs.push(result.toFixed(3));
         } else {
             arrIs.push(result);
         }
