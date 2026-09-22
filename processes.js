@@ -152,12 +152,15 @@ button.forEach(btn => {
                 arrX.splice(0);
             }
         } else if (btn.id === 'all-clear' 
-                || btn.id === 'num' && arrIs[1]) {
+                || btn.className === 'num' && arrIs[1]) {
             arrX.splice(0);
             arrOp.splice(0);
             arrY.splice(0);
             arrIs.splice(1);
             is.innerHTML = '';
+            if (btn.className === 'num') {
+                arrX.push(btn.innerHTML);
+            }
         }
         x.innerHTML = arrX.join('');
         op.innerHTML = arrOp;
