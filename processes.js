@@ -35,7 +35,11 @@ function operate() {
     let Y = arrY.join('');
     let result = pickOperation(Number(X), OP, Number(Y));
     if (!arrIs[1]){
+        if (result % 1 != 0) {
     arrIs.push(result.toFixed(1));
+        } else {
+            arrIs.push(result);
+        }
     }
 }
 //Input Triggers
@@ -89,7 +93,7 @@ document.addEventListener('keydown', e => {
 });
 button.forEach(btn => {
     btn.addEventListener('click', event => {
-        if (btn.id === 'equals') {
+        if (btn.id === 'equals' && arrY[0]) {
             operate();
             is.innerHTML = arrIs.join('');
         }
