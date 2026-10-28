@@ -1,5 +1,8 @@
 //Identify Parts
 const button = document.querySelectorAll('button');
+const memory = document.getElementById('memory');
+    let mem = [];
+    let memNumber = 0;
 let arrX = [];
 let arrOp = [];
 let arrY = [];
@@ -34,40 +37,51 @@ function operate() {
     let OP = arrOp[0];
     let Y = arrY.join('');
     if (Y === '0') {
-        arrIs.push("You should know you can't do that");
+        arrIs.push("You should know that doesn't do anything");
     } else {
         let result = pickOperation(Number(X), OP, Number(Y));
         if (!arrIs[1]){
             if (result % 1 != 0) {
-        arrIs.push(result.toFixed(3));
+                arrIs.push(result.toFixed(3));
             } else {
                 arrIs.push(result);
             }
         }
     }
 }
+//Memory
+function storeMemory() {
+    memNumber += 1;
+    let item = document.createElement('button');
+    item.classList.add('memory');
+    item.id = memNumber;
+    const oldie = [arrX.join(''), arrOp.join(''), arrY.join(''), is.textContent];
+    mem.push(oldie);
+    item.textContent = oldie.join(' ');
+    memory.appendChild(item);
+}
 //Input Triggers
 document.addEventListener('keydown', e => {
     if (e.key === '1') {
-        document.getElementById('1').click();
+        document.getElementById('one').click();
     } else if (e.key === '2') {
-        document.getElementById('2').click();
+        document.getElementById('two').click();
     } else if (e.key === '3') {
-        document.getElementById('3').click();
+        document.getElementById('three').click();
     } else if (e.key === '4') {
-        document.getElementById('4').click();
+        document.getElementById('four').click();
     } else if (e.key === '5') {
-        document.getElementById('5').click();
+        document.getElementById('five').click();
     } else if (e.key === '6') {
-        document.getElementById('6').click();
+        document.getElementById('six').click();
     } else if (e.key === '7') {
-        document.getElementById('7').click();
+        document.getElementById('seven').click();
     } else if (e.key === '8') {
-        document.getElementById('8').click();
+        document.getElementById('eight').click();
     } else if (e.key === '9') {
-        document.getElementById('9').click();
+        document.getElementById('nine').click();
     } else if (e.key === '0') {
-        document.getElementById('0').click();
+        document.getElementById('zero').click();
     } else if (e.key === '.') {
         document.getElementById('.').click();
     } else if (e.key === '-') {
@@ -102,8 +116,9 @@ button.forEach(btn => {
         if (btn.id === 'equals') {
             if (arrY[0] === '-' && arrY[1] 
               ||arrY[0] && arrY[0] !== '-') {
-            operate();
-            is.innerHTML = arrIs.join('');
+                operate();
+                is.innerHTML = arrIs.join('');
+                storeMemory();
             }
         }
         if (btn.className === 'num' && !arrOp[0] && arrX[arrX.length - 2] !== '.') {
@@ -165,6 +180,8 @@ button.forEach(btn => {
             if (btn.className === 'num') {
                 arrX.push(btn.innerHTML);
             }
+        } else if (btn.className === 'memory') {
+            //select memory in array based on Id number
         }
         x.innerHTML = arrX.join('');
         op.innerHTML = arrOp;
