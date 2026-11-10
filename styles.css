@@ -1,0 +1,112 @@
+body{
+    width: 99vw;
+    height: 100vh;
+    margin: -1vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-image: url(images/chalkboard.jpg);
+}
+#memory {
+    display: flex;
+    align-self: flex-start;
+    flex-wrap: wrap;
+    max-height: 98vh;
+    padding-inline-start: 20px;
+    overflow: auto;
+    button {
+        border: transparent;
+        background-color: transparent;
+        margin-bottom: 3vh;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        /*text*/
+        font-family: 'Courier New', Courier, monospace;
+        font-size: large;
+        background-image: url(images/chalk.png);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+    #topLine, #bottomLine, #oldResult {
+        display: flex;
+        align-self: flex-end;
+    }
+    #oldResultHolder {
+        display: flex;
+        justify-content: end;
+        border-top: 1px solid transparent;
+        border-image: url(images/chalk.png) 30;
+    }
+}
+#container {
+    aspect-ratio: 0.6;
+    height: 90vh;
+    min-height: 300px;
+    border: solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 10px;
+    background-color: #dd2d00;
+    margin: 2vw;
+    button {
+        height: 9vh;
+        min-height: 27px;
+        aspect-ratio: 1.5;
+        border-radius: 20px;
+        background-color: #a17944;
+    }
+}
+#display {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin: 2vh;
+    justify-content: space-evenly;
+    aspect-ratio: 3;
+    height: 20vh;
+    min-height: 60px;
+    border: solid;
+    border-width: 4px;
+    border-radius: 20px;
+    background-color: #c2d4b1;
+    font-size: larger;
+    *{
+        height: 5vh;
+        min-height: 15px;
+        display: flex;
+        justify-content: flex-end;
+        font-size: 1em;
+        margin-right: 2vw;
+        margin-left: 2vw;
+    }
+    #equation {
+        width: 55vh;
+        overflow: auto;
+        #x, #y {
+            width: fit-content;
+            margin: 0;
+        }
+        #op {
+            width: fit-content;
+            margin-left: 2vh;
+            margin-right: 2vh;
+        }
+    }
+}
+#transformers {
+    align-self: center;
+}
+#inputs {
+    height: 55vh;
+    min-height: 165px;
+    display: flex;
+}
+#number-inputs, #in-betweens {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
