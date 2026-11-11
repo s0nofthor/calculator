@@ -1,64 +1,69 @@
 //Identify Parts
-    const button = document.querySelectorAll('button');
+const button = document.querySelectorAll('button');
     //Memory Log
-        const memory = document.getElementById('memory');
-        let mem = [];
-        let memNumber = 0;
-        let chosenMem = [];
+    const memory = document.getElementById('memory');
+    let mem = [];
+    let memNumber = 0;
+    let chosenMem = [];
     //Operations
-        let arrX = [];
-        let arrOp = [];
-        let arrY = [];
-        let arrIs = ['= ',];
+    let arrX = [];
+    let arrOp = [];
+    let arrY = [];
+    let arrIs = ['= ',];
+    //Credits
+    let creditTrigger = document.getElementById('creditTrigger');
+    let creditBox = document.getElementById('creditBox');
+    let closer = document.getElementsByClassName('close')[0];
 //Create Operations
-    function add(a, b) {
-        return a + b;
-    }
-    function subtract(a, b) {
-        return a - b;
-    }
-    function multiply(a, b) {
-        return a * b;
-    }
-    function divide(a, b) {
-        return a / b;
-    }
+function add(a, b) {
+    return a + b;
+}
+function subtract(a, b) {
+    return a - b;
+}
+function multiply(a, b) {
+    return a * b;
+}
+function divide(a, b) {
+    return a / b;
+}
 //Access Operations
-    function pickOperation(x, op, y) {
-        if (op === "+") {
-            return add(x, y);
-        } else if (op === "-") {
-            return subtract(x, y);
-        } else if (op === "*") {
-            return multiply(x, y);
-        } else if (op === "/") {
-            return divide(x, y);
-        }
+function pickOperation(x, op, y) {
+    if (op === "+") {
+        return add(x, y);
+    } else if (op === "-") {
+        return subtract(x, y);
+    } else if (op === "*") {
+        return multiply(x, y);
+    } else if (op === "/") {
+        return divide(x, y);
     }
-    function operate() {
-        let X = arrX.join('');
-        let OP = arrOp[0];
-        let Y = arrY.join('');
-        if (OP === '/' && (X === '0' || Y === '0'))  {
-            arrIs.push("You should know that's not possible");
-        } else {
-            let result = pickOperation(Number(X), OP, Number(Y));
-            if (!arrIs[1]){
-                if (result % 1 != 0) {
-                    arrIs.push(`${result.toFixed(3)}`);
-                } else {
-                    arrIs.push(`${result}`);
-                }
+}
+function operate() {
+    let X = arrX.join('');
+    let OP = arrOp[0];
+    let Y = arrY.join('');
+    if (OP === '/' && (X === '0' || Y === '0'))  {
+        arrIs.push("You should know that's not possible");
+    } else {
+        let result = pickOperation(Number(X), OP, Number(Y));
+        if (!arrIs[1]){
+            if (result % 1 != 0) {
+                arrIs.push(`${result.toFixed(3)}`);
+            } else {
+                arrIs.push(`${result}`);
             }
         }
     }
+}
 //Update Display
-    function updateDisplay() {
-        x.innerHTML = arrX.join('');
-        op.innerHTML = arrOp;
-        y.innerHTML = arrY.join('');
-    }
+function updateDisplay() {
+    x.innerHTML = arrX.join('');
+    op.innerHTML = arrOp;
+    y.innerHTML = arrY.join('');
+}
 //Memory
+    //Logging
     function storeMemory() {
         if (arrIs[1] !== "You should know that's not possible") {
             memNumber += 1;
@@ -89,20 +94,7 @@
             memory.appendChild(item);
         }
     }
-    memory.addEventListener('mouseover', e=> {
-        if (!e.target.closest('.memory')) return;
-        let throwBack = e.target.closest('.memory');
-        let oldResultBox = throwBack.querySelector('#oldResultHolder');
-        throwBack.style.backgroundImage = "url('images/reverse-chalk.png')";
-        oldResultBox.style.borderImage = "url('images/reverse-chalk.png') 30";
-    })
-    memory.addEventListener('mouseout', e => {
-        if (!e.target.closest('.memory')) return;
-        throwBack = e.target.closest('.memory');
-        let oldResultBox = throwBack.querySelector('#oldResultHolder');
-        throwBack.style.backgroundImage = "url('images/chalk.png')";
-        oldResultBox.style.borderImage = "url('images/chalk.png') 30";
-    })
+    //Reinputting
     memory.addEventListener('click', e => {
         if (!e.target.closest('.memory')) return;
             let throwBack = e.target.closest('.memory');
@@ -117,12 +109,28 @@
             is.innerHTML = arrIs.join('');
             throwBack.blur();
     })
-//Input Triggers
-    function origState(intended) {
-        setTimeout(function() {
-            intended.style.borderStyle = 'outset'
-        }, 200);
-    }
+    //Colors
+    memory.addEventListener('mouseover', e=> {
+        if (!e.target.closest('.memory')) return;
+        let throwBack = e.target.closest('.memory');
+        let oldResultBox = throwBack.querySelector('#oldResultHolder');
+        throwBack.style.backgroundImage = "url('images/reverse-chalk.png')";
+        oldResultBox.style.borderImage = "url('images/reverse-chalk.png') 30";
+    })
+    memory.addEventListener('mouseout', e => {
+        if (!e.target.closest('.memory')) return;
+        throwBack = e.target.closest('.memory');
+        let oldResultBox = throwBack.querySelector('#oldResultHolder');
+        throwBack.style.backgroundImage = "url('images/chalk.png')";
+        oldResultBox.style.borderImage = "url('images/chalk.png') 30";
+    })
+//Calculator Inputs
+function origState(intended) {
+    setTimeout(function() {
+        intended.style.borderStyle = 'outset'
+    }, 200);
+}
+    //Triggering Buttons With Keyboard
     document.addEventListener('keydown', e => {
         if (e.key === '1') {
             let one = document.getElementById('one');
@@ -243,6 +251,7 @@
             origState(equals);
         }
     });
+    //Triggering Inputs
     button.forEach(btn => {
         btn.addEventListener('click', event => {
             if (btn.id === 'equals') {
@@ -318,3 +327,15 @@
             btn.blur();
         })
     })
+//Credits
+creditTrigger.onclick = function() {
+    creditBox.style.display = 'block';
+}
+closer.onclick = function() {
+    creditBox.style.display = 'none';
+}
+window.onclick = function(event) {
+    if (event.target == creditBox) {
+        creditBox.style.display = 'none';
+    }
+}
